@@ -8,25 +8,18 @@ return compare
 // вторая задача
 
 function getUsersNamesInAgeRange(users, gender) {
-
-function getSumOfAges (total, age){
-    return total + age
- }
-const initialValue = 0;
-const curientGender = users.filter(user => user.gender === gender);
-const curientUsersAge = curientGender.map(user => user.age);
-
-const subTotal = curientUsersAge.reduce(getSumOfAges,initialValue)
-
-if(users === [] && gender === "мужской") {
-    return 0
-}
-if (gender !== "мужской" && gender !== "женский" ) {
-    return 0
-}
-
-let result = subTotal / curientUsersAge.length;
+    if(  users.length === 0) {
+        return 0
+    }
+    if (gender !== "мужской" && gender !== "женский" ) {
+        return 0
+    }
+let result = users.filter(user => user.gender === gender).map(user => user.age).reduce((total, age, index, users) => {
+    total+=age;
+    if(index === users.length - 1) {
+        return total / users.length;
+    }
+    return total;
+},0)
 return result
 }
-
-//let result = users.filter(user => user.gender === gender).map(user => user.age).reduce((accumulator, user) => accumulator + currentValue, initialValue)
